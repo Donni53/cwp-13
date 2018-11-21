@@ -14,11 +14,9 @@ app.use('/motions', require('./motions'));
 
 app.all('/*', (req, res, next) =>
 {
-    fs.appendFile('log.log', `{"data":${new Date()},\n "params":${JSON.stringify(req.query)},\n "path":${req.originalUrl}}\n\n\n`, function(err) {
-        if(err) {
-            return console.log(err);
-        }
-    });
+    fs.appendFile('log.log', `{"data":${new Date()},\n "params":${JSON.stringify(req.query)},\n "path":${req.originalUrl}}\n\n\n`, (err) => {
+    if (err) throw err;
+});
     next();
 });
 

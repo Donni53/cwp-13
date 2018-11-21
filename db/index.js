@@ -8,15 +8,17 @@ const Sequelize = require('sequelize');
 
 module.exports = (Sequelize, config)=>
 {
-    const sequelize = new Sequelize({
-        dialect: 'mysql',
-        database: 'tracking',
-        username: 'root',
-        host: 'localhost',
-        port: '3306',
-        password: 'password',
-        logging: true,
-    })
+    const sequelize = new Sequelize('database', 'username', '',
+                                    {
+                                        host: 'localhost',
+                                        dialect: 'sqlite',
+                                        storage: './tracking',
+                                        define: {
+                                            timestamps: true,
+                                            paranoid: true
+                                        }
+                                    });
+
     const fleets = Fleet(Sequelize, sequelize);
     const motions = Motion(Sequelize, sequelize);
     const vehicles = Vehicle(Sequelize, sequelize);
